@@ -1,1 +1,1 @@
-web: gunicorn ping-stats:server
+web: gunicorn example:server
