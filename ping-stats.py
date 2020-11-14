@@ -23,45 +23,51 @@ import dash_auth
 #print (p.communicate()[0])
 
 # read csv
-file_object  = open('C:/Users/shaha/OneDrive/Documents/data/pingstats', 'r') 
+#****
+#file_object  = open('C:/Users/shaha/OneDrive/Documents/data/pingstats', 'r') 
 
 # open ping file to read from 
-with open('pingstats.csv', mode='w') as pingstats:
-    ping_writer = csv.writer(pingstats, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+#with open('pingstats.csv', mode='w') as pingstats:
+#    ping_writer = csv.writer(pingstats, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
     # csv header
-    ping_writer.writerow(['date_time','date', 'time', 'transmitted', 'received', 'packet_loss', 'minimum', 'maximum', 'avg', 'stddev'])
+#    ping_writer.writerow(['date_time','date', 'time', 'transmitted', 'received', 'packet_loss', 'minimum', 'maximum', 'avg', 'stddev'])
     
     # open csv file to write to 
-    with open('C:/Users/shaha/OneDrive/Documents/data/pingstats') as input_file:
-        for line in input_file:
-            # timestamp denotes start of block, convert to datetime
-            if 'GMT' in line:
-                date_time = datetime.datetime.strptime(line[5:][:-5],'%d %b %Y %H:%M:%S')
-                date = date_time.date()
-                time = date_time.time()
-            
-            # split packet data
-            elif 'packets transmitted' in line:
-                metrics = line.split()
-                transmitted = metrics[0]
-                received = metrics[3]
-                packet_loss = metrics[6][:-1]
-            
-            # split metric data
-            elif 'round-trip' in line:
-                stats = line.split('=')[1].split('/')
-                minimum = stats[0][1:]
-                maximum = stats[1]
-                avg = stats[2]
-                stddev = stats[3][:-4]
-                #print([date, transmitted, received, packet_loss, minimum, maximum, avg, stddev])
-                # write row to csv
-                ping_writer.writerow([date_time, date,time, transmitted, received, packet_loss, minimum, maximum, avg, stddev])
-    input_file.close()
-pingstats.close()
+#    with open('C:/Users/shaha/OneDrive/Documents/data/pingstats') as input_file:
+#        for line in input_file:
+#            # timestamp denotes start of block, convert to datetime
+#            if 'GMT' in line:
+#                date_time = datetime.datetime.strptime(line[5:][:-5],'%d %b %Y %H:%M:%S')
+#                date = date_time.date()
+#                time = date_time.time()
+#            
+#            # split packet data
+#            elif 'packets transmitted' in line:
+#                metrics = line.split()
+#               transmitted = metrics[0]
+#                received = metrics[3]
+#                packet_loss = metrics[6][:-1]
+#            
+#            # split metric data
+#            elif 'round-trip' in line:
+#               stats = line.split('=')[1].split('/')
+#                minimum = stats[0][1:]
+#                maximum = stats[1]
+#                avg = stats[2]
+#                stddev = stats[3][:-4]
+#                #print([date, transmitted, received, packet_loss, minimum, maximum, avg, stddev])
+#                # write row to csv
+#                ping_writer.writerow([date_time, date,time, transmitted, received, packet_loss, minimum, maximum, avg, stddev])
+#    input_file.close()
+#pingstats.close()
+#******************
+
 
 # create a DataFrame from the .csv file:
-df = pd.read_csv('C:/Users/shaha/OneDrive/Documents/Jupyter/pingstats.csv')
+#df = pd.read_csv('C:/Users/shaha/OneDrive/Documents/Jupyter/pingstats.csv')
+
+df = pd.read_csv('pingstats.csv')
+
 
 
 ####
