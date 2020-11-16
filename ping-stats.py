@@ -5,8 +5,9 @@ Created on Mon Nov  9 21:18:14 2020
 @author: shaha
 """
 import csv
-import datetime
+from datetime import datetime
 import pandas as pd
+import os
 
 import plotly.graph_objects as go
 
@@ -17,6 +18,7 @@ from dash.dependencies import Input, Output
 
 import json
 import dash_auth
+
 
 #import subprocess
 #p = subprocess.Popen(["ping.exe","www.google.com"], stdout = subprocess.PIPE)
@@ -66,9 +68,26 @@ import dash_auth
 # create a DataFrame from the .csv file:
 #df = pd.read_csv('C:/Users/shaha/OneDrive/Documents/Jupyter/pingstats.csv')
 
+
+ping_target = ' 8.8.8.8'
+results = os.popen ('ping' + ping_target).read()
+print (results)
+
+date = datetime.today().strftime('%d %b %Y')
+time = datetime.now().time().strftime('%H:%M:%S')
+packet_loss = results.split('Lost = ')[1].split('(')[0]
+latency = results.split('Average = ')[1].split('ms')[0]
+
+print( packet_loss, latency, date, time )
+
+
+with open(r'pingstats.csv', 'a') as file:
+    writer = csv.writer(file)
+    writer.writerow([date, time, packet_loss, latency])
+    file.close()
+
+
 df = pd.read_csv('pingstats.csv')
-
-
 
 ####
 # need to substitue missing data / sleep time with 0
