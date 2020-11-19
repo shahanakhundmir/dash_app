@@ -10,7 +10,10 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-#import json
+
+import dash_auth
+
+
 '''
 with open('pingstats.csv', mode='w') as pingstats:
     ping_writer = csv.writer(pingstats, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
@@ -21,6 +24,9 @@ pingstats.close()
 # dash app
 colour = {'background': '#000000', 'border' : '#2f4f4f','text': '#ffffff', 'yel': '#ffff00'}
 app = dash.Dash()
+USER_PASSWORD_PAIRS = [['name', 'pass']]
+auth = dash_auth.BasicAuth(app, USER_PASSWORD_PAIRS )
+server = app.server
 
 df = pd.read_csv('pingstats.csv')
 df.dropna(inplace = True)
