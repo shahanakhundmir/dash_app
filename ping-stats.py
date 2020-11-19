@@ -69,9 +69,12 @@ app.layout = html.Div(['Ping Statistics',
 def refresh_page(interval):
     ping_target = ' 8.8.8.8'
     results = os.popen ('ping' + ping_target).read()
+    print(results)
     date_time = datetime.datetime.now()
     packet_loss = results.split('Lost = ')[1].split('(')[0]
+    print(packet_loss)
     latency = results.split('Average = ')[1].split('ms')[0]
+    print(latency)
 
     with open('pingstats.csv', mode='a') as file:
         writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
